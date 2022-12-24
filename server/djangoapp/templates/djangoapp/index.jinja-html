@@ -1,0 +1,7 @@
+{% extends "djangoapp/base.jinja-html" %}
+{% block content %}
+<p>
+Dealership get_dealer_details
+</p>
+
+{% endblock %}

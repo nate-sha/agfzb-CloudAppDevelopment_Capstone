@@ -1,0 +1,11 @@
+{% extends 'djangoapp/base.jinja-html' %}
+
+{% block content %}
+  <div class="container p-3 pb-md-4 mx-auto">
+     <h1 class="display-4 fw-normal">About Us</h1>
+    <p class="lead">
+     Welcome to Best Cars dealership, home to the best cars in North America. We sell domestic and imported cars at reasonable prices.
+    </p>
+  </div>
+
+{% endblock %}

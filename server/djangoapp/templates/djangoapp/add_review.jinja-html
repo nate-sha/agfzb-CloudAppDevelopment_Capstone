@@ -1,0 +1,4 @@
+{% extends 'djangoapp/base.jinja-html' %}
+{% block content %}
+<h1> Add Review </h1>
+{% endblock %}
