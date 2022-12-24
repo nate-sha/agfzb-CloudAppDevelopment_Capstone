@@ -1,8 +1,7 @@
 <header>
-  <!-- Fixed navbar -->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Best Dealership</a>
+      <a class="navbar-brand" href="/djangoapp/">Best Dealership</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -28,9 +27,36 @@
             <a class="nav-link" href="/djangoapp/contact">Contact</a>
           </li>
         </ul>
-        <div class="d-flex" role="search">
-          <button class="btn btn-outline-success" type="button">login</button>
+        {% if user.is_authenticated %}
+        <div class="d-flex">
+          <p class="text-light">{{ user.first_name }}</p>
+          <a class="btn btn-danger" href="{% url 'djangoapp:logout' %}">
+            Logout
+          </a>
         </div>
+        {% else %}
+        <form class="d-flex" action="{% url 'djangoapp:login' %}" method="POST">
+          {% csrf_token %}
+          <input
+            class="form-control me-2"
+            type="text"
+            name="username"
+            placeholder="username"
+            aria-label="username"
+          />
+          <input
+            class="form-control me-2"
+            type="password"
+            name="password"
+            placeholder="password"
+            aria-label="password"
+          />
+          <button class="btn btn-outline-success" type="submit">login</button>
+        </form>
+        <a class="btn btn-info" href="{% url 'djangoapp:registration' %}">
+          Sign Up
+        </a>
+        {% endif %}
       </div>
     </div>
   </nav>
