@@ -18,7 +18,7 @@ def about(request):
     context = {
         'title': 'About',
     }
-    return render(request, 'djangoapp/about.jinja-html', context)
+    return render(request, 'djangoapp/about.html', context)
 
 
 def contact(request):
@@ -26,9 +26,7 @@ def contact(request):
         'title': 'Contact',
         'email': 'shaar.nate@gmail.com'
     }
-    return render(request, 'djangoapp/contact.jinja-html', context)
-
-# Create a `login_request` view to handle sign in request
+    return render(request, 'djangoapp/contact.html', context)
 
 
 def login_request(request):
@@ -82,7 +80,7 @@ def registration_request(request):
             login(request, user)
             messages.info(request, "You have successfully registered")
             return redirect('djangoapp:index')
-    return render(request, 'djangoapp/registration.jinja-html')
+    return render(request, 'djangoapp/registration.html')
 
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
@@ -91,7 +89,7 @@ def get_dealerships(request):
         'title': 'Home'
     }
     if request.method == "GET":
-        return render(request, 'djangoapp/index.jinja-html', context)
+        return render(request, 'djangoapp/index.html', context)
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer

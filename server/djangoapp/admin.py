@@ -1,13 +1,28 @@
 from django.contrib import admin
-# from .models import related models
+from .models import CarMake, CarModel
+
+# Change the admin site header
+admin.site.site_header = "Best Dealership Admin"
 
 
-# Register your models here.
+class CarModelInline(admin.StackedInline):
+    model = CarModel
+    extra = 0
 
-# CarModelInline class
 
-# CarModelAdmin class
+class CarModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'car_make', 'type', 'dealer_id', 'year')
+    list_display_links = ('id', 'name')
+    search_fields = ('name', 'type')
+    list_per_page = 25
 
-# CarMakeAdmin class with CarModelInline
 
-# Register models here
+class CarMakeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'description',)
+    list_display_links = ('id', 'name')
+    search_fields = ('name', 'description')
+    list_per_page = 25
+    inlines = [CarModelInline]
+
+
+admin.site.register(CarMake, CarMakeAdmin)
