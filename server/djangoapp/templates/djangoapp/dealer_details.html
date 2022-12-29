@@ -1,0 +1,81 @@
+{% extends 'djangoapp/base.html' %} 
+{% load static %} 
+{% block content %} 
+{% if user.is_authenticated %}
+<div class="container mx-auto text-center">
+  <a
+    href="{% url 'djangoapp:add_review' dealer_id %}"
+    class="btn btn-primary btn-md mb-3"
+  >
+    <i class="fa fa-plus"></i>
+    Add Review
+  </a>
+</div>
+{% else %}
+<div class="container mx-auto text-center">
+  <p>Login to add a review</p>
+</div>
+
+{% endif %}
+<div class="d-flex justify-content-center">
+  <div class="card-deck d-none d-lg-flex">
+    {% if reviews|length > 0 %} {% for review in reviews %}
+    <div class="shadow card mb-3 bg-dark text-light m-2">
+      <div
+        class="card-header {% if review.sentiment == 'positive' %}bg-success{% elif review.sentiment == 'negative' %}bg-danger{% else %}bg-secondary{% endif %} text-white"
+      >
+        {% if review.sentiment == 'positive' %}😊{% elif review.sentiment ==
+        'negative' %}😞{% else %}😐{% endif %} {{ review.title }}
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ review.car_make }}, {{ review.car_model }}</p>
+        <h6 class="card-subtitle mb-2 text-muted">{{ review.car_year }}</h6>
+      </div>
+      <div class="card-footer">
+        <p class="card-text">{{ review.review }}</p>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <p class="display-6 text-light">
+      Be the first to review this dealer, {% if user.is_authenticated %} Click
+      "Add Review" {% else %} Log in to add a review {% endif %}
+    </p>
+    {% endif %}
+  </div>
+</div>
+<div class="card-columns d-lg-none">
+  {% for review in reviews %}
+  <div class="card mb-3">
+    <div
+      class="card-header {% if review.sentiment == 'positive' %}bg-success{% elif review.sentiment == 'negative' %}bg-danger{% else %}bg-secondary{% endif %} text-white"
+    >
+      {% if review.sentiment == 'positive' %}😊{% elif review.sentiment ==
+      'negative' %}😞{% else %}😐{% endif %} {{ review.title }}
+    </div>
+    <div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted">{{ review.author }}</h6>
+      <p class="card-text">{{ review.body }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<br />
+<div class="text-light">
+  <div class="text-center">{{ dealer }}</div>
+  <p>
+    Welcome to our reviews page! Here, you can read reviews from other users
+    about their experiences at different car dealerships. Each review is
+    accompanied by an emoji and a color to indicate the sentiment of the review:
+  </p>
+  <ul>
+    <li>😊 (green background) indicates a positive review</li>
+    <li>😐 (grey background) indicates a neutral review</li>
+    <li>😞 (red background) indicates a negative review</li>
+  </ul>
+  <p>
+    We hope these reviews will help you make an informed decision when choosing
+    a car dealership to visit. Please feel free to leave your own review to help
+    others make an informed decision as well.
+  </p>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'djangoapp/base.html' %} {% block content %}
+<div class="container mt-5">
+  <form
+    class="form bg-dark text-light w-50 mx-auto"
+    method="post"
+    action="{% url 'djangoapp:add_review' dealer_id %}"
+  >
+    {% csrf_token %}
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+    <div class="form-group">
+      <label for="id_review">Enter the review content:</label>
+      <textarea
+        name="review"
+        cols="40"
+        rows="3"
+        required
+        class="form-control bg-dark text-light"
+        id="id_review"
+      ></textarea>
+    </div>
+    <div class="form-group form-check">
+      <input
+        type="checkbox"
+        name="purchase-check"
+        class="form-check-input"
+        id="id_purchased_car"
+      />
+      <label class="form-check-label" for="id_purchased_car">
+        Did you purchase a car from
+        <strong>{{ page_description }}</strong>
+        ?
+      </label>
+    </div>
+
+    <div class="input-group mb-3 mt-2">
+      <div class="input-group-prepend">
+        <label class="bg-dark text-light" for="inputGroupSelect01">
+          <strong>Select your car (Make, Model, Year)</strong>
+        </label>
+      </div>
+      <select
+        name="car_make"
+        class="custom-select bg-dark text-light mx-1"
+        id="inputGroupSelect01"
+      >
+        {% for car in cars %}
+        <option>{{ car }}</option>
+        {% endfor %}
+      </select>
+      <select
+        name="car_model"
+        class="custom-select bg-dark text-light mx-1"
+        id="inputGroupSelect01"
+      >
+        {% for model in models %}
+        <option>{{ model }}</option>
+        {% endfor %}
+      </select>
+      <select
+        name="car_year"
+        class="custom-select bg-dark text-light mx-1"
+        id="inputGroupSelect01"
+      >
+        {% for year in years %}
+        <option>{{ year }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="id_purchase_date">Select your purchase date</label>
+      <input
+        type="date"
+        name="purchase_date"
+        class="form-control bg-dark text-light"
+        id="id_purchase_date"
+      />
+    </div>
+    <button type="submit" class="btn btn-success mt-2 block">Submit</button>
+  </form>
+</div>
+{% endblock %}
